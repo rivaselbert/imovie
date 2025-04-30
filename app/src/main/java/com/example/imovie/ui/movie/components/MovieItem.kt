@@ -24,10 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.imovie.R
+import com.example.imovie.data.model.Movie
 import com.example.imovie.ui.theme.IMovieTheme
 
 @Composable
-fun MovieItem() {
+fun MovieItem(
+    movie: Movie
+) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
@@ -41,7 +44,7 @@ fun MovieItem() {
                     .fillMaxWidth()
                     .sizeIn(maxHeight = 350.dp)
                     .clip(RoundedCornerShape(8.dp)),
-                model = "https://static.tvmaze.com/uploads/images/medium_portrait/1/4600.jpg",
+                model = movie.image?.medium,
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 error = painterResource(R.drawable.image_placeholder),
@@ -55,14 +58,14 @@ fun MovieItem() {
                     modifier = Modifier.weight(1f).padding(start = 4.dp),
                 ) {
                     Text(
-                        text = "Avengers Endgame",
+                        text = movie.name,
                         style = MaterialTheme.typography.bodyLarge.copy(
                             lineHeight = 18.sp
                         ),
                         maxLines = 2
                     )
                     Text(
-                        text = "Sci-Fi",
+                        text = movie.genres.joinToString(", "),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.outline,
                         maxLines = 1
@@ -77,6 +80,8 @@ fun MovieItem() {
 @Composable
 private fun MovieItemPreview() {
     IMovieTheme {
-        MovieItem()
+//        MovieItem(
+//            movie = Movie()
+//        )
     }
 }
