@@ -116,11 +116,13 @@ private fun MovieListScreenContent(
                     }
                 }
 
-                items(uiState.movies) {movie ->
-                    MovieItem(
-                        movie = movie,
-                        onClick = onMovieItemClick
-                    )
+                uiState.movies?.let {
+                    items(uiState.movies) {movie ->
+                        MovieItem(
+                            movie = movie,
+                            onClick = onMovieItemClick
+                        )
+                    }
                 }
             }
         }
