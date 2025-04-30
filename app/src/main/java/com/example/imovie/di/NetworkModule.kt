@@ -1,4 +1,4 @@
-package com.example.imovie.data.di
+package com.example.imovie.di
 
 import com.example.imovie.data.api.MovieService
 import dagger.Module
