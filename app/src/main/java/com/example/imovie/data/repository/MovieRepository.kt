@@ -20,8 +20,10 @@ class MovieRepository @Inject constructor(
 
             CoroutineScope(Dispatchers.IO).launch {
                 // Persist movies to local db
-                localMovieDataSource.clearMovies()
-                localMovieDataSource.saveMovies(movies)
+                if (movies.isNotEmpty()) {
+                    localMovieDataSource.clearMovies()
+                    localMovieDataSource.saveMovies(movies)
+                }
             }
 
             Result.success(movies)
@@ -45,9 +47,11 @@ class MovieRepository @Inject constructor(
             val movies = response.map { it.show }
 
             CoroutineScope(Dispatchers.IO).launch {
-                // Persist movies result to local db
-                localMovieDataSource.clearMovies()
-                localMovieDataSource.saveMovies(movies)
+                if (movies.isNotEmpty()) {
+                    // Persist movies result to local db
+                    localMovieDataSource.clearMovies()
+                    localMovieDataSource.saveMovies(movies)
+                }
             }
 
             Result.success(movies)

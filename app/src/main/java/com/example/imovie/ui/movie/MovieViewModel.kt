@@ -37,7 +37,7 @@ class MovieViewModel @Inject constructor(
         }
     }
 
-    private fun getMovies() {
+    fun getMovies() {
         viewModelScope.launch {
             setIsLoading(true)
             movieRepository.getMovies()
@@ -82,7 +82,7 @@ class MovieViewModel @Inject constructor(
 }
 
 data class MovieUIState(
-    val movies: List<Movie> = emptyList(),
+    val movies: List<Movie>? = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
 )
