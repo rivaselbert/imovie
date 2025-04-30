@@ -29,14 +29,15 @@ import com.example.imovie.ui.theme.IMovieTheme
 
 @Composable
 fun MovieItem(
-    movie: Movie
+    movie: Movie,
+    onClick: (Movie) -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
-        onClick = {  }
+        onClick = { onClick(movie) }
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             AsyncImage(

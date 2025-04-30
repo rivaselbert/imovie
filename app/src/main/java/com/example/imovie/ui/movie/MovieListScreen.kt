@@ -25,24 +25,28 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.imovie.data.model.Movie
 import com.example.imovie.ui.movie.components.MovieItem
 import com.example.imovie.ui.movie.components.MovieListTopBar
 import com.example.imovie.ui.theme.IMovieTheme
 
 @Composable
 fun MovieListScreen(
+    navigateToMovieDetails: (Movie) -> Unit,
     viewModel: MovieViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     MovieListScreenContent(
-        uiState = uiState
+        uiState = uiState,
+        onMovieItemClick = navigateToMovieDetails
     )
 }
 
 @Composable
 private fun MovieListScreenContent(
     uiState: MovieUIState,
+    onMovieItemClick: (Movie) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -86,7 +90,10 @@ private fun MovieListScreenContent(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(uiState.movies) {movie ->
-                    MovieItem(movie)
+                    MovieItem(
+                        movie = movie,
+                        onClick = onMovieItemClick
+                    )
                 }
             }
         }
@@ -98,7 +105,8 @@ private fun MovieListScreenContent(
 private fun MovieListScreenPreview() {
     IMovieTheme {
         MovieListScreenContent(
-            uiState = MovieUIState()
+            uiState = MovieUIState(),
+            onMovieItemClick = {}
         )
     }
 }
