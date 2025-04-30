@@ -11,24 +11,23 @@ class TypeConverters {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromStringList(value: List<String>): String {
-        return gson.toJson(value)
+    fun fromStringList(value: List<String>?): String? {
+        return value?.let { gson.toJson(it) }
     }
 
     @TypeConverter
-    fun toStringList(value: String): List<String> {
-        val listType = object : TypeToken<List<String>>() {}.type
-        return gson.fromJson(value, listType)
+    fun toStringList(value: String?): List<String>? {
+        return if (value == null) null else gson.fromJson(value, object : TypeToken<List<String>>() {}.type)
     }
 
     @TypeConverter
-    fun fromRating(value: Rating): String {
-        return gson.toJson(value)
+    fun fromRating(value: Rating?): String? {
+        return value?.let { gson.toJson(it) }
     }
 
     @TypeConverter
-    fun toRating(value: String): Rating {
-        return gson.fromJson(value, Rating::class.java)
+    fun toRating(value: String?): Rating? {
+        return if (value == null) null else gson.fromJson(value, Rating::class.java)
     }
 
     @TypeConverter

@@ -7,6 +7,8 @@ class RemoteMovieDataSource @Inject constructor(
     private val movieService: MovieService,
 ) {
 
-    // TODO: Add documentation
     suspend fun getMovies() = movieService.getMovies()
+
+    suspend fun searchMovies(searchText: String) =
+        movieService.searchMovies(searchText)
 }
